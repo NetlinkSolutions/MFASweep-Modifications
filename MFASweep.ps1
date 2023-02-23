@@ -7,10 +7,14 @@ Function Invoke-MFASweep{
     This script attempts to login to various Microsoft services using a provided set of credentials. It will attempt to identify where authentication was successful and in some cases where MFA is enabled. WARNING: It is very possible (and easy) to lock an account out with this tool. Make sure you are using a valid set of credentials to avoid lockouts.
 
     Author: Beau Bullock (@dafthack)
+    Modified By: Marty Marks (Netlink Solutions)
     License: MIT
     Required Dependencies: None
     Optional Dependencies: None
   
+# MODIFICATION GOALS
+#-repurpose output for use in generate a CSV output report for all accounts fed in to the wrapper via CSV
+
     .DESCRIPTION
     This script attempts to login to various Microsoft services using a provided set of credentials. It will attempt to identify where authentication was successful and in some cases where MFA is enabled. By default this script will attempt to login to the Microsoft Graph API, Azure Service Management API, Microsoft 365 Exchange Web Services, Microsoft 365 Web Portal with both desktop and mobile user agents, and Microsoft 365 Active Sync. It also has an additional check for ADFS configurations and can attempt to login to the on-prem ADFS server if detected.
       
@@ -201,6 +205,7 @@ Function Invoke-MFASweep{
 
     }
 
+    #REPLACE THIS SECTION WITH CSV ROW FORMATTING
     Write-Host -ForegroundColor Yellow "######### SINGLE FACTOR ACCESS RESULTS #########"
     if($global:graphresult -contains "YES"){Write-Host -NoNewLine "Microsoft Graph API $Tab$Tab$Tab|"; Write-Host -ForegroundColor Green " $global:graphresult"}
     else{Write-Host "Microsoft Graph API $Tab$Tab$Tab| $global:graphresult"}
